@@ -12,5 +12,12 @@
     "description": "The ultimate burger-flipping idle game! Click your way to a fast-food empire.",
     "thumbnail": "https://i.ibb.co/p6J0PqbK/image.png",
     "iframeUrl": "https://ubgwtf.gitlab.io/burger-clicker/"
+  },
+  {
+    "id": "football-legends",
+    "title": "Football Legends",
+    "description": "Become a football superstar! Play as your favorite legends and dominate the field in this fast-paced sports game.",
+    "thumbnail": "https://i.ibb.co/8LRxqq5t/image.png",
+    "iframeUrl": "https://cdn.myunblockedgames.com/games/football-legends/index.html"
   }
 ]
