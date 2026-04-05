@@ -18,8 +18,6 @@ function renderGames(gamesToRender) {
     const grid = document.getElementById('games-grid');
     const count = document.getElementById('game-count');
     const noResults = document.getElementById('no-results');
-    const hero = document.getElementById('hero');
-    const gridTitle = document.getElementById('grid-title');
 
     grid.innerHTML = '';
     count.textContent = gamesToRender.length;
@@ -30,17 +28,21 @@ function renderGames(gamesToRender) {
         noResults.classList.add('hidden');
         gamesToRender.forEach(game => {
             const card = document.createElement('div');
-            card.className = 'game-card group cursor-pointer transition-all hover:-translate-y-1';
+            card.className = 'anime-card group cursor-pointer transition-all';
             card.innerHTML = `
-                <div class="relative aspect-[4/3] rounded-2xl overflow-hidden bg-zinc-900 border border-zinc-800 transition-all group-hover:border-indigo-500/50 group-hover:shadow-[0_0_20px_rgba(99,102,241,0.15)]">
-                    <img src="${game.thumbnail}" alt="${game.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" referrerpolicy="no-referrer">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
-                    <div class="absolute bottom-0 left-0 right-0 p-4">
-                        <h4 class="text-lg font-bold text-white mb-1">${game.title}</h4>
-                        <p class="text-xs text-zinc-300 line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity">${game.description}</p>
+                <div class="relative aspect-[4/3] rounded-[2rem] overflow-hidden bg-white/5 border border-pink-500/20 transition-all group-hover:border-pink-500/50 group-hover:shadow-[0_0_30px_rgba(236,72,153,0.2)]">
+                    <img src="${game.thumbnail}" 
+                         alt="${game.title}" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                         referrerpolicy="no-referrer"
+                         onerror="this.src='https://picsum.photos/seed/${game.id}/400/300?blur=2'; this.onerror=null;">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6">
+                        <h4 class="text-xl font-bold text-white mb-2 group-hover:text-pink-200 transition-colors">${game.title}</h4>
+                        <p class="text-sm text-pink-100/70 line-clamp-2 opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0">${game.description}</p>
                     </div>
-                    <div class="play-btn absolute top-3 right-3 bg-indigo-600 p-2 rounded-full scale-0 transition-transform opacity-0">
-                        <i data-lucide="gamepad-2" class="w-4 h-4 text-white"></i>
+                    <div class="absolute top-4 right-4 bg-pink-500 p-3 rounded-2xl scale-0 group-hover:scale-100 transition-all shadow-lg rotate-12 group-hover:rotate-0">
+                        <i data-lucide="play" class="w-5 h-5 text-white fill-current"></i>
                     </div>
                 </div>
             `;
@@ -59,11 +61,12 @@ document.getElementById('search-input').addEventListener('input', (e) => {
 
     if (query) {
         hero.classList.add('hidden');
-        gridTitle.textContent = `Search Results for "${query}"`;
+        gridTitle.innerHTML = `<i data-lucide="search" class="w-6 h-6 text-pink-500"></i> Results for "${query}"`;
     } else {
         hero.classList.remove('hidden');
-        gridTitle.textContent = 'Popular Games';
+        gridTitle.innerHTML = `<i data-lucide="flame" class="w-6 h-6 text-pink-500"></i> Trending Now`;
     }
+    lucide.createIcons();
 
     const filtered = games.filter(game => 
         game.title.toLowerCase().includes(query) || 
