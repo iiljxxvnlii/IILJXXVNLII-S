@@ -1,4 +1,6 @@
+
 let games = [];
+let currentGameCleanup = null;
 
 // Initialize Lucide icons
 lucide.createIcons();
@@ -78,13 +80,31 @@ document.getElementById('search-input').addEventListener('input', (e) => {
 // Modal logic
 function openGame(game) {
     const modal = document.getElementById('game-modal');
+    const iframeContainer = document.getElementById('iframe-container');
+    const canvasContainer = document.getElementById('canvas-container');
     const iframe = document.getElementById('game-iframe');
+    const canvas = document.getElementById('game-canvas');
     const title = document.getElementById('modal-title');
     const thumb = document.getElementById('modal-thumb');
 
-    iframe.src = game.iframeUrl;
     title.textContent = game.title;
     thumb.src = game.thumbnail;
+    
+    // Cleanup previous game
+    if (currentGameCleanup) {
+        currentGameCleanup();
+        currentGameCleanup = null;
+    }
+
+    if (game.type === 'local') {
+        iframeContainer.classList.add('hidden');
+        canvasContainer.classList.remove('hidden');
+        iframe.src = '';
+    } else {
+        canvasContainer.classList.add('hidden');
+        iframeContainer.classList.remove('hidden');
+        iframe.src = game.iframeUrl;
+    }
     
     modal.classList.remove('hidden');
     document.body.classList.add('modal-active');
@@ -94,6 +114,11 @@ document.getElementById('close-modal').onclick = () => {
     const modal = document.getElementById('game-modal');
     const iframe = document.getElementById('game-iframe');
     
+    if (currentGameCleanup) {
+        currentGameCleanup();
+        currentGameCleanup = null;
+    }
+
     iframe.src = '';
     modal.classList.add('hidden');
     document.body.classList.remove('modal-active');

@@ -143,12 +143,17 @@
             </div>
 
             <!-- Iframe Container -->
-            <div class="w-full h-full pt-16">
+            <div id="iframe-container" class="w-full h-full pt-16">
                 <iframe id="game-iframe" src="" class="w-full h-full border-none" sandbox="allow-scripts allow-popups allow-forms allow-same-origin allow-popups-to-escape-sandbox allow-downloads allow-storage-access-by-user-activation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+
+            <!-- Canvas Container (For Local Games) -->
+            <div id="canvas-container" class="w-full h-full pt-16 hidden flex items-center justify-center bg-black">
+                <canvas id="game-canvas" class="max-w-full max-h-full shadow-2xl"></canvas>
             </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
